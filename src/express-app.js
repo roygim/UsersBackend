@@ -1,9 +1,11 @@
 const express = require('express');
+const bodyparser = require('body-parser');
 const cors  = require('cors');
-const { users } = require('./api');
+const { users, register } = require('./api');
 
 module.exports = async (app) => {
 
+    app.use(bodyparser.json())
     app.use(express.json({ limit: '1mb'}));
     app.use(express.urlencoded({ extended: true, limit: '1mb'}));
     app.use(cors());
@@ -13,6 +15,7 @@ module.exports = async (app) => {
 
     //api
     users(router);  
+    register(router);  
     
     app.use('/api', router);
 }
