@@ -2,7 +2,7 @@ const usersService = require('../services/users.service')
 const { responseCode, responseStatus } = require('../util/response-object');
 
 module.exports = (router) => {
-    router.post("/register/signup", async (req, res, next) => {
+    router.post("/register", async (req, res, next) => {
         const { firstname, lastname, email, password } = req.body;
 
         try {
@@ -19,7 +19,7 @@ module.exports = (router) => {
         }
     });
 
-    router.post("/register/login", async (req, res, next) => {
+    router.post("/login", async (req, res, next) => {
         const { email, password } = req.body;
 
         try {
