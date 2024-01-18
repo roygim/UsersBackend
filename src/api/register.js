@@ -1,4 +1,5 @@
 const usersService = require('../services/users.service')
+const { responseCode, responseStatus } = require('../util/response-object');
 
 module.exports = (router) => {
     router.post("/register/signup", async (req, res, next) => {
@@ -8,13 +9,13 @@ module.exports = (router) => {
             const newUser = { firstname: firstname, lastname: lastname, email: email, password: password }
             const response = await usersService.register(newUser)
 
-            if(response.code == -1) {
-                res.status(400).send('User already exists');    
+            if(response.code == responseCode.USER_EXISTS) {
+                res.status(400).send(responseStatus.USER_EXISTS);    
             } else {
-                res.status(201).send('User created successfully!');
+                res.status(201).send(responseStatus.USER_CREATE);
             }            
         } catch (err) {
-            res.status(400).send('Error occurred');
+            res.status(400).send(responseStatus.ERROR);
         }
     });
 
@@ -24,15 +25,15 @@ module.exports = (router) => {
         try {
             const response = await usersService.login(email, password)
 
-            if(response.code == -1) {
-                res.status(400).send('Invalid password');
-            } else if (response.code == -2) {
-                res.status(404).send('User not found');
+            if(response.code == responseCode.INVALID_PASSWORD) {
+                res.status(400).send(responseStatus.INVALID_PASSWORD);
+            } else if (response.code == responseCode.USER_NOT_FOUND) {
+                res.status(404).send(responseStatus.USER_NOT_FOUND);
             } else {
-                res.status(200).send('User found');
+                res.status(200).send(responseStatus.USER_FOUND);
             }
         } catch (err) {
-            res.status(400).send('Error occurred');
+            res.status(400).send(responseStatus.ERROR);
         }
     });
 };
