@@ -23,7 +23,6 @@ module.exports.login = async (email, password) => {
         if (user) {
             const isPasswordCorrect = await bcrypt.compare(password, user.password)
             if (!isPasswordCorrect) {
-                console.log('first')
                 return ResponseObject(-1, null, 'Invalid password')
             }
 
