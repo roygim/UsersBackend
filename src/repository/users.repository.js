@@ -18,7 +18,6 @@ module.exports.getUserByEmail = async (email) => {
     try {
         const [row] = await userdbPool.query('SELECT * FROM users WHERE email = ?', [email])
 
-        console.log(row)
         if(row && row.length > 0) {
             return row[0];
         }

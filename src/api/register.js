@@ -6,9 +6,9 @@ module.exports = (router) => {
 
         try {
             const newUser = { firstname: firstname, lastname: lastname, email: email, password: password }
-            const insertId = await usersService.register(newUser)
+            const response = await usersService.register(newUser)
 
-            if(insertId == -1) {
+            if(response.code == -1) {
                 res.status(400).send('User already exists');    
             } else {
                 res.status(201).send('User created successfully!');
@@ -22,13 +22,15 @@ module.exports = (router) => {
         const { email, password } = req.body;
 
         try {
-            const user = await usersService.login(email)
+            const response = await usersService.login(email, password)
 
-            if(user) {
-                res.status(200).send('User found');
-            } else {
+            if(response.code == -1) {
+                res.status(400).send('Invalid password');
+            } else if (response.code == -2) {
                 res.status(404).send('User not found');
-            }            
+            } else {
+                res.status(200).send('User found');
+            }
         } catch (err) {
             res.status(400).send('Error occurred');
         }
