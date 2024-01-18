@@ -1,28 +1,36 @@
-const bcrypt = require('bcrypt');
-const userdbPool = require('../database/mysql/userdb')
+const usersService = require('../services/users.service')
 
 module.exports = (router) => {
     router.post("/register/signup", async (req, res, next) => {
         const { firstname, lastname, email, password } = req.body;
 
         try {
-            // const [records] = await userdbPool.query("SELECT * FROM users")
-            
-            const hashedPassword = await bcrypt.hash(password, 12)
-            
-            // const newUser = { firstname: firstname, lastname: lastname, email: email, password: hashedPassword };
-            // const sql_query = "INSERT INTO users SET ?";
-            // const result = await userdbPool.query(sql_query, newUser)
-            // console.log(result)
+            const newUser = { firstname: firstname, lastname: lastname, email: email, password: password }
+            const insertId = await usersService.register(newUser)
 
-
-            const sql_query = `INSERT INTO users (firstname, lastname, email, password) VALUES (?, ?, ?, ?)`;
-            const [row] = await userdbPool.execute(sql_query, [firstname, lastname, email, hashedPassword]);
-            console.log('New user ID ' + row.insertId);
-
-            res.send(`${row.insertId}`);
+            if(insertId == -1) {
+                res.status(400).send('User already exists');    
+            } else {
+                res.status(201).send('User created successfully!');
+            }            
         } catch (err) {
-            next(err);
+            res.status(400).send('Error occurred');
+        }
+    });
+
+    router.post("/register/login", async (req, res, next) => {
+        const { email, password } = req.body;
+
+        try {
+            const user = await usersService.login(email)
+
+            if(user) {
+                res.status(200).send('User found');
+            } else {
+                res.status(404).send('User not found');
+            }            
+        } catch (err) {
+            res.status(400).send('Error occurred');
         }
     });
 };

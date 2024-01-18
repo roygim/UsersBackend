@@ -1,5 +1,5 @@
 const mysql = require('mysql2/promise')
-const { MYSQL_LOCALHOST, MYSQL_USER, MYSQL_PASSWORD } = require('../../config');
+const { MYSQL_LOCALHOST, MYSQL_USER, MYSQL_PASSWORD } = require('../config');
 
 const mysqlUserDBPool = mysql.createPool({
     host: MYSQL_LOCALHOST,
