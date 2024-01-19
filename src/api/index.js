@@ -1,4 +1,3 @@
 module.exports = {
-    users: require('./users'),
-    register: require('./register'),
+    users: require('./users.api'),
 }

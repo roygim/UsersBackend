@@ -12,4 +12,5 @@ module.exports = {
     MYSQL_LOCALHOST: process.env.MYSQL_LOCALHOST,
     MYSQL_USER: process.env.MYSQL_USER,
     MYSQL_PASSWORD: process.env.MYSQL_PASSWORD,
+    ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
 };

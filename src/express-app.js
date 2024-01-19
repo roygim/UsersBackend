@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 const cors  = require('cors');
-const { users, register } = require('./api');
+const { users } = require('./api');
 
 module.exports = async (app) => {
 
@@ -15,7 +15,6 @@ module.exports = async (app) => {
 
     //api
     users(router);  
-    register(router);  
     
     app.use('/api', router);
 }

@@ -18,4 +18,5 @@ module.exports.responseStatus = Object.freeze({
     INVALID_PASSWORD: 'Invalid password',
     USER_FOUND: 'User found',
     USER_NOT_FOUND: 'User not found',
+    LOGIN_SUCCESS: 'login success',
 })

@@ -24,16 +24,25 @@ module.exports = (router) => {
 
         try {
             const response = await usersService.login(email, password)
-
+            
             if(response.code == responseCode.INVALID_PASSWORD) {
                 res.status(400).send(responseStatus.INVALID_PASSWORD);
             } else if (response.code == responseCode.USER_NOT_FOUND) {
                 res.status(404).send(responseStatus.USER_NOT_FOUND);
             } else {
-                res.status(200).send(responseStatus.USER_FOUND);
+                res.status(200).send(response);
             }
         } catch (err) {
             res.status(400).send(responseStatus.ERROR);
+        }
+    });
+
+    router.get("/users/signup", async (req, res, next) => {
+        try {
+            console.log('/users/signup')
+            res.send('users, World!');
+        } catch (err) {
+            next(err);
         }
     });
 };
