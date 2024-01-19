@@ -40,3 +40,30 @@ module.exports.login = async (email, password) => {
         throw err
     }
 }
+
+module.exports.update = async (userId, user) => {
+    try {
+        const isUpdate = await usersRepository.updateUser(userId, user)
+        if(isUpdate) {
+            user.id = userId;
+            return ResponseObject(responseCode.OK, user, responseStatus.UPDATE_SUCCESS)
+        } else {
+            return ResponseObject(responseCode.ERROR, null, responseStatus.ERROR)
+        }
+    } catch (err) {
+        throw err
+    }
+}
+
+module.exports.delete = async (userId) => {
+    try {
+        const isDelete = await usersRepository.deleteUser(userId)
+        if(isDelete) {
+            return ResponseObject(responseCode.OK, null, responseStatus.DELETE_SUCCESS)
+        } else {
+            return ResponseObject(responseCode.ERROR, null, responseStatus.ERROR)
+        }
+    } catch (err) {
+        throw err
+    }
+}

@@ -40,11 +40,41 @@ module.exports = (router) => {
 
     router.put("/users/update", authenticationToken, async (req, res) => {
         try {
-            const { firstname, lastname, email, password } = req.body;
-            const user = req.user;
-            res.send('users, World!');
+            const { firstname, lastname, email } = req.body;
+            const userId = req.user.id;
+
+            const updateUser = {
+                firstname: firstname,
+                lastname: lastname,
+                email: email
+            }
+
+            const response = await usersService.update(userId, updateUser)
+
+            if (response.code == responseCode.OK) {
+                res.status(200).send(response);
+            } else {
+                res.status(400).send(responseStatus.ERROR);
+            }
         } catch (err) {
             res.status(400).send(responseStatus.ERROR);
         }
-    });   
+    });
+
+    router.delete("/users/delete", authenticationToken, async (req, res) => {
+        try {
+            const userId = req.user.id;
+            console.log(userId)
+
+            const response = await usersService.delete(userId)
+
+            if (response.code == responseCode.OK) {
+                res.status(200).send(responseStatus.DELETE_SUCCESS);
+            } else {
+                res.status(400).send(responseStatus.ERROR);
+            }
+        } catch (err) {
+            res.status(400).send(responseStatus.ERROR);
+        }
+    });
 };
