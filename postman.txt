@@ -1,3 +1,9 @@
+#GetAllUsers
+http://localhost:8002/api/users
+
+=======================================
+
+#RegisterUser
 http://localhost:8002/api/register
 {
     "firstname": "user1",
@@ -5,13 +11,19 @@ http://localhost:8002/api/register
     "email": "user1@gmail.com",
     "password": "1111"
 }
+
 =======================================
+
+#LoginUser
 http://localhost:8002/api/login
 {
     "email": "user1@gmail.com",
     "password": "1111"
 }
+
 =======================================
+
+#UpdateUser
 http://localhost:8002/api/users/update
 Authorization - bearer {access_token}
 {
@@ -19,6 +31,9 @@ Authorization - bearer {access_token}
     "lastname": "last111",
     "email": "user111@gmail.com"
 }
+
 =======================================
+
+#DeleteUser
 http://localhost:8002/api/users/delete
 Authorization - bearer {access_token}

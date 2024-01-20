@@ -3,7 +3,21 @@ const { responseCode, responseStatus } = require('../util/response-object');
 const { authenticationToken } = require('./middleware/authentication.middleware');
 
 module.exports = (router) => {
-    router.post("/register", async (req, res, next) => {
+    router.get("/users", async (req, res) => {
+        try {
+            const response = await usersService.getAll()
+
+            if (response.code == responseCode.OK) {
+                res.status(200).send(response);
+            } else {
+                res.status(400).send(responseStatus.ERROR);
+            }
+        } catch (err) {
+            res.status(400).send(responseStatus.ERROR);
+        }
+    });
+
+    router.post("/register", async (req, res) => {
         const { firstname, lastname, email, password } = req.body;
 
         try {
@@ -20,7 +34,7 @@ module.exports = (router) => {
         }
     });
 
-    router.post("/login", async (req, res, next) => {
+    router.post("/login", async (req, res) => {
         const { email, password } = req.body;
 
         try {
@@ -38,6 +52,7 @@ module.exports = (router) => {
         }
     });
 
+    
     router.put("/users/update", authenticationToken, async (req, res) => {
         try {
             const { firstname, lastname, email } = req.body;

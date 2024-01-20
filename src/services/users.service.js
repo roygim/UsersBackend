@@ -4,6 +4,16 @@ const usersRepository = require('../repository/users.repository');
 const { ResponseObject, responseCode, responseStatus } = require('../util/response-object');
 const { ACCESS_TOKEN_SECRET } = require('../config');
 
+module.exports.getAll = async () => {
+    try {
+        const users = await usersRepository.getAll()
+
+        return ResponseObject(responseCode.OK, users, responseStatus.OK)
+    } catch (err) {
+        throw err
+    }
+}
+
 module.exports.register = async (newUser) => {
     try {
         const user = await usersRepository.getUserByEmail(newUser.email)

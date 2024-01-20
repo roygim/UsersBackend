@@ -1,6 +1,17 @@
 const bcrypt = require('bcrypt');
 const userdbPool = require('../database/userdb')
 
+module.exports.getAll = async () => {
+    try {
+        const sql_query = `SELECT * FROM users`;
+        const [row] = await userdbPool.query(sql_query);
+
+        return row;
+    } catch (err) {
+        throw err
+    }
+}
+
 module.exports.addUser = async (newUser) => {
     try {
         const hashedPassword = await bcrypt.hash(newUser.password, 12)
