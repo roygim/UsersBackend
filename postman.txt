@@ -1,0 +1,24 @@
+http://localhost:8002/api/register
+{
+    "firstname": "user1",
+    "lastname": "last1",
+    "email": "user1@gmail.com",
+    "password": "1111"
+}
+=======================================
+http://localhost:8002/api/login
+{
+    "email": "user1@gmail.com",
+    "password": "1111"
+}
+=======================================
+http://localhost:8002/api/users/update
+Authorization - bearer {access_token}
+{
+    "firstname": "user111",
+    "lastname": "last111",
+    "email": "user111@gmail.com"
+}
+=======================================
+http://localhost:8002/api/users/delete
+Authorization - bearer {access_token}
