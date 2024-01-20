@@ -64,7 +64,6 @@ module.exports = (router) => {
     router.delete("/users/delete", authenticationToken, async (req, res) => {
         try {
             const userId = req.user.id;
-            console.log(userId)
 
             const response = await usersService.delete(userId)
 

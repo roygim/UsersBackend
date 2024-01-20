@@ -48,7 +48,7 @@ module.exports.deleteUser = async (userId) => {
     try {
         const sql_query = 'DELETE FROM users WHERE id = ?';
         const [row] = await userdbPool.execute(sql_query, [userId]);
-        console.log(row)
+
         if (row.affectedRows > 0) {
             return true
         }
