@@ -87,7 +87,7 @@ module.exports = (router) => {
             const response = await usersService.delete(userId)
 
             if (response.code == responseCode.OK) {
-                res.status(200).send(responseStatus.DELETE_SUCCESS);
+                res.status(200).send(response);
             } else {
                 res.status(400).send(responseStatus.ERROR);
             }
