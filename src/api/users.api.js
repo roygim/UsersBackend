@@ -106,4 +106,13 @@ module.exports = (router) => {
             res.status(400).send(responseStatus.ERROR);
         }
     });
+
+    router.post("/loaduser", authenticationToken, async (req, res) => {
+        try {
+            const retVal = ResponseObject(responseCode.OK, req.user, responseStatus.LOAD_USER_SUCCESS)
+            res.status(200).send(retVal);
+        } catch (err) {
+            res.status(400).send(responseStatus.ERROR);
+        }
+    });
 };
