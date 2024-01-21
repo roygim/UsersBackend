@@ -19,6 +19,7 @@ module.exports.responseStatus = Object.freeze({
     USER_FOUND: 'User found',
     USER_NOT_FOUND: 'User not found',
     LOGIN_SUCCESS: 'login success',
+    LOGOUT_SUCCESS: 'logout success',
     UPDATE_SUCCESS: 'update success',
     DELETE_SUCCESS: 'delete success',
 })

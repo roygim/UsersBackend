@@ -56,6 +56,17 @@ module.exports = (router) => {
         }
     });
 
+    router.delete("/logout", async (req, res) => {
+        try {
+            console.log('logout')
+            res.clearCookie('userToken')
+            const retVal = ResponseObject(responseCode.OK, null, responseStatus.LOGOUT_SUCCESS)
+            res.status(200).send(retVal)
+        } catch (err) {
+            res.status(400).send(responseStatus.ERROR);
+        }
+    });
+
 
     router.put("/users/update", authenticationToken, async (req, res) => {
         try {
