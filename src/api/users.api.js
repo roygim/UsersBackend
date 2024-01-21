@@ -29,7 +29,7 @@ module.exports = (router) => {
             if (response.code == responseCode.USER_EXISTS) {
                 res.status(400).send(responseStatus.USER_EXISTS);
             } else {
-                res.status(201).send(responseStatus.USER_CREATE);
+                res.status(201).send(response);
             }
         } catch (err) {
             res.status(400).send(responseStatus.ERROR);
