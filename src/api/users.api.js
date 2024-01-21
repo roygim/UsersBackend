@@ -5,8 +5,6 @@ const { authenticationToken } = require('./middleware/authentication.middleware'
 module.exports = (router) => {
     router.get("/users", async (req, res) => {
         try {
-            console.log('cookies: ', req.cookies)
-
             const response = await usersService.getAll()
 
             if (response.code == responseCode.OK) {
