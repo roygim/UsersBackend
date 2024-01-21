@@ -1,10 +1,12 @@
 const usersService = require('../services/users.service')
-const { responseCode, responseStatus } = require('../util/response-object');
+const { responseCode, responseStatus, ResponseObject } = require('../util/response-object');
 const { authenticationToken } = require('./middleware/authentication.middleware');
 
 module.exports = (router) => {
     router.get("/users", async (req, res) => {
         try {
+            console.log('cookies: ', req.cookies)
+
             const response = await usersService.getAll()
 
             if (response.code == responseCode.OK) {
@@ -45,14 +47,16 @@ module.exports = (router) => {
             } else if (response.code == responseCode.USER_NOT_FOUND) {
                 res.status(404).send(responseStatus.USER_NOT_FOUND);
             } else {
-                res.status(200).send(response);
+                const retVal = ResponseObject(responseCode.OK, { user: response.data.user }, responseStatus.LOGIN_SUCCESS)
+                res.cookie('userToken', response.data.accessToken, { httpOnly: true });
+                res.status(200).send(retVal);
             }
         } catch (err) {
             res.status(400).send(responseStatus.ERROR);
         }
     });
 
-    
+
     router.put("/users/update", authenticationToken, async (req, res) => {
         try {
             const { firstname, lastname, email } = req.body;
