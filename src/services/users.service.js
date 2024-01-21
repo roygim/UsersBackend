@@ -14,6 +14,19 @@ module.exports.getAll = async () => {
     }
 }
 
+module.exports.getUserById = async (id) => {
+    try {
+        const user = await usersRepository.getUserById(id)
+        if(user) {
+            return ResponseObject(responseCode.OK, user, responseStatus.USER_FOUND)
+        } else {
+            return ResponseObject(responseCode.ERROR, user, responseStatus.USER_NOT_FOUND)
+        }
+    } catch (err) {
+        throw err
+    }
+}
+
 module.exports.register = async (newUser) => {
     try {
         const user = await usersRepository.getUserByEmail(newUser.email)

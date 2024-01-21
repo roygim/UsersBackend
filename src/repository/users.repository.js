@@ -25,6 +25,21 @@ module.exports.addUser = async (newUser) => {
     }
 }
 
+module.exports.getUserById = async (id) => {
+    try {
+        const [row] = await userdbPool.query('SELECT * FROM users WHERE id = ?', [id])
+
+        if (row && row.length > 0) {
+            return row[0];
+        }
+
+        return null
+    } catch (err) {
+        console.log(err)
+        throw err
+    }
+}
+
 module.exports.getUserByEmail = async (email) => {
     try {
         const [row] = await userdbPool.query('SELECT * FROM users WHERE email = ?', [email])
